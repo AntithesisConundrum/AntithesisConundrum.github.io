@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>	
 	<head>
+		<title>
+			Rice GPA Calculator
+		</title>
 		<script src="jquery.js"></script>
 		<style>
 			body {
 			font-size: 20px;
 			background: #ffecb3;
+			font-family: Georgia;
+			}
+			h1 {
+				text-align: center;
 			}
 			button {
 			margin: 40px;
@@ -38,6 +45,7 @@
 	</head>
 	
 	<body>
+		<h1>Rice GPA Calculator</h1>
 		<table>
 			<tr>
 				<td id="classname">Class Name</td>
@@ -51,10 +59,9 @@
 			</tr>
 		</table>
 		<br>
-		<input type="button" class="button" class="next" value="Next" />
-		<input type="button" class="button" id="done" value="Done" />
+		<span class = "next"><input type="button" class="button" value="Next" /></span>
+		<span class = "done"><input type="button" class="button" value="Done" /></span>
 		<div class="show"></div>
-		
 		<script>
 		var classes = [];
 		var hours = [];
@@ -64,14 +71,70 @@
 		var recordAnswers = function() {
 			classes.push($('.classes').val());
 			hours.push($('.hours').val());
-			grades.push($('.grades').val());
-			$('.prompt').html(classes + hours + grades)
+			grades.push($('.grade').val());
+			$('.show').html(classes + "   " + hours + "   " + grades)
 		}
 		
 		$('.next').click(function() {
 			recordAnswers();
 			alert("clicked!");
 		});
+		
+		var showResults = function() {
+			var numClasses = classes.length
+			if(numClasses == 0) {
+				return "You have to input a class!"
+			}
+			var index  = 0
+			var totalHours = 0
+			var totalGrade = 0
+			while(index < numClasses){
+				var currentHours = hours[index]
+				totalHours += currentHours
+				var currentGrade = toUpperCase(grades[index])
+				if(currentGrade == "A+") {
+					totalGrade += 4.333*currentHours
+				}
+				else if(currentGrade == "A") {
+					totalGrade += 4*currentHours
+				}
+				else if(currentGrade == "A-") {
+					totalGrade += 3.667*currentHours
+				}
+				else if(currentGrade == "B+") {
+					totalGrade += 3.333*currentHours
+				}
+				else if(currentGrade == "B") {
+					totalGrade += 3*currentHours
+				}
+				else if(currentGrade == "B-") {
+					totalGrade += 2.667*currentHours
+				}
+				else if(currentGrade == "C+") {
+					totalGrade += 2.333*currentHours
+				}
+				else if(currentGrade == "C") {
+					totalGrade += 2*currentHours
+				}
+				else if(currentGrade == "C-") {
+					totalGrade += 1.666*currentHours
+				}
+				else if(currentGrade == "D+") {
+					totalGrade += 1.333*currentHours
+				}
+				else if(currentGrade == "D") {
+					totalGrade += 1*currentHours
+				}
+				else if(currentGrade == "D-") {
+					totalGrade += 0.667*currentHours
+				}
+				else if(currentGrade == "F") {
+					totalgade += 0
+				}
+			index++
+			}
+		return 
+		}
 		
 		</script>
 	</body>
