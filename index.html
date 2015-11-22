@@ -38,6 +38,7 @@
 			}
 			
 			h3 {
+				margin: 0px 0px 10px 0px;
 				text-align: center;
 				position: relative;
 				font-size: 130%;
@@ -65,7 +66,6 @@
 				left: 2.5%;
 				border-collapse: collapse;
 				margin-top: 1%;
-				margin-bottom: 4.5%;
 			}
 			
 			td {
@@ -80,16 +80,16 @@
 				position: relative;
 				margin: 5.25%;
 				margin-top: 10%;
-				margin-bottom: 5%;
+				margin-bottom: 3.5%;
 				left: 11.5%;
 				background-color: rgba(150, 0, 0, 0.1);
 				border-radius: 5px;
 			}
 			
 			footer {
-				position: absolute;
-				margin: 0;
-				bottom: 0;
+				position: fixed;
+				left: 5px;
+				bottom: -5px;
 			}
 			
 			p {
@@ -201,9 +201,12 @@
 						displayArray.push(currentEntry)
 					}
 					// Every subsequent element should have a comma before it
-					else {
+					else if(index % 3 == 0){
 						displayArray.push("<br>")
 						displayArray.push(currentEntry)
+					}
+					else{
+						displayArray.push(" || " + currentEntry)
 					}
 					// Makes sure we're not stuck in an infinite loop
 					index++
