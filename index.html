@@ -200,11 +200,12 @@
 					if(index==0){
 						displayArray.push(currentEntry)
 					}
-					// Every subsequent element should have a comma before it
+					// Every third element thereafter should start a new line
 					else if(index % 3 == 0){
 						displayArray.push("<br>")
 						displayArray.push(currentEntry)
 					}
+					// And the others have breaks for ease of reading
 					else{
 						displayArray.push(" || " + currentEntry)
 					}
