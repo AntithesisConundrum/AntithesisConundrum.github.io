@@ -58,9 +58,11 @@
 				<td id="letter">Letter Grade</td>
 			</tr>
 			<tr>
+				<span class="inputs">
 				<td><input type="text" class="classes"></td>
 				<td><input type="text" class="hours"></td>
 				<td><input type="text" class="grade"></td>
+				</span>
 			</tr>
 		</table>
 		<br>
@@ -87,8 +89,12 @@
 		}
 		
 		$('.next').click(function() {
+			//alert("Click")
 			recordAnswers();
-		});
+			//alert("recorded")
+			//alert("cleared")
+    	});
+
 		
 		var showResults = function() {
 			//alert("Function")
@@ -105,7 +111,10 @@
 				var currentHours = Number(hours[index])
 				
 				if(typeof currentHours != "number") {
-					return 'One of your "Hours" fields was entered improperly. Please try again.' + typeof currentHours + currentHours + index
+					classes = []
+					hours = []
+					grades = []
+					return 'One of your "Hours" fields was entered improperly. Please try again.'
 				}
 				totalHours += currentHours
 				var currentGrade = grades[index];
@@ -149,6 +158,9 @@
 					totalGrade += 0
 				}
 				else {
+					classes = []
+					hours = []
+					grades = []
 					return 'One of your "Grade" fields was entered improperly. Please try again.'
 				}
 			index++
