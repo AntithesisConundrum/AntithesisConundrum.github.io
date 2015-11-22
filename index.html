@@ -9,7 +9,7 @@
 			body {
 			font-size: 20px;
 			background: #ffecb3;
-			font-family: Georgia sans-serif;
+			font-family: Georgia;
 			}
 			h1 {
 				text-align: center;
@@ -77,21 +77,24 @@
 		
 		$('.next').click(function() {
 			recordAnswers();
-			alert("clicked!");
 		});
 		
 		var showResults = function() {
 			var numClasses = classes.length
 			if(numClasses == 0) {
-				return "You have to input a class!"
+				return 'You have to input a class!'
 			}
 			var index  = 0
 			var totalHours = 0
 			var totalGrade = 0
 			while(index < numClasses){
-				var currentHours = hours[index]
+				var currentHours = Number(hours[index])
+				
+				if(typeof currentHours != "number") {
+					return 'One of your "Hours" fields was entered improperly. Please try again.' + typeof currentHours + currentHours + index
+				}
 				totalHours += currentHours
-				var currentGrade = toUpperCase(grades[index])
+				var currentGrade = grades[index].toUpperCase();
 				if(currentGrade == "A+") {
 					totalGrade += 4.333*currentHours
 				}
@@ -129,12 +132,20 @@
 					totalGrade += 0.667*currentHours
 				}
 				else if(currentGrade == "F") {
-					totalgade += 0
+					totalGrade += 0
+				}
+				else {
+					return 'One of your "Grade" fields was entered improperly. Please try again.'
 				}
 			index++
 			}
-		return 
+		return( totalGrade / totalHours )
 		}
+		
+		$('.done').click(function() {
+			var result = String(showResults());
+			$('.show').html(result);
+		});
 		
 		</script>
 	</body>
