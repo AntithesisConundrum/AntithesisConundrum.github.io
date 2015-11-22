@@ -216,7 +216,14 @@
 					currentHours = hours[index]
 					currentGrade = grades[index]
 					// Concencate them into one readable entry
-					currentEntry = currentClass + " : " + currentHours + " Hours : " + currentGrade
+					// One Hour
+					if(currentHours = 1) {
+						currentEntry = currentClass + " : " + currentHours + " Hour : " + currentGrade
+					}
+					// Two+ Hours
+					else {
+						currentEntry = currentClass + " : " + currentHours + " Hours : " + currentGrade
+					}
 					// The first element should just be the element
 					if(index==0){
 						displayArray.push(currentEntry)
