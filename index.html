@@ -80,6 +80,7 @@
 		});
 		
 		var showResults = function() {
+			//alert("Function")
 			var numClasses = classes.length
 			if(numClasses == 0) {
 				return 'You have to input a class!'
@@ -87,7 +88,9 @@
 			var index  = 0
 			var totalHours = 0
 			var totalGrade = 0
+			//alert("Beginning While")
 			while(index < numClasses){
+				//alert("While")
 				var currentHours = Number(hours[index])
 				
 				if(typeof currentHours != "number") {
@@ -138,11 +141,16 @@
 					return 'One of your "Grade" fields was entered improperly. Please try again.'
 				}
 			index++
-			}
-		return( totalGrade / totalHours )
+		//alert("GPA calc")
+		var GPA = totalGrade / totalHours
+		//alert("GPA good")
+		var roundedGPA = Math.round(GPA*1000) / 1000
+		//alert("round good")
+		return(roundedGPA)
 		}
 		
 		$('.done').click(function() {
+			//alert("Done")
 			var result = String(showResults());
 			$('.show').html(result);
 		});
