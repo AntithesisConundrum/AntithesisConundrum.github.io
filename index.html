@@ -74,6 +74,7 @@
 			}
 
 			.button {
+				font-family: Verdana, Geneva, Tahoma, sans-serif;
 				width: 15%;
 				height: 5%;
 				position: relative;
@@ -134,158 +135,213 @@
 		</footer>
 		
 		<script>
-		var classes = [];
-		var hours = [];
-		var grades = [];
-		
-		var resetAnswers = function() {
-			classes = [];
-			hours = [];
-			grades = [];
-		}
-		
-		$('input:text').focus(
-    		function(){
-        		$(this).val('');
-    	});
-		
-		// A function that will record the inputted values
-		var recordAnswers = function() {
-			newClass = $('.classes').val().toUpperCase()
-			newHour = $('.hours').val()
-			newGrade = $('.grade').val().toUpperCase()
-			if(newClass == "" || newHour == "" || newGrade == "") {
-				$('.gpaAndErrors').show()
-				$('.gpaAndErrors').html('You must fill out all fields.')
-				return null
+			// These arrays will hold the inputted values
+			// Equal indices correspond with each other
+			var classes = [];
+			var hours = [];
+			var grades = [];
+			
+			// FUNCTION resetAnswers: resets the inputs
+			var resetAnswers = function() {
+				classes = [];
+				hours = [];
+				grades = [];
 			}
-			classes.push(newClass);
-			hours.push(newHour);
-			grades.push(newGrade);
-		}
-		
-		var displayClasses = function() {
-			var num = classes.length
-			var index = 0
-			var displayArray = []
-			while(index < num) {
-				currentClass = classes[index]
-				currentHours = hours[index]
-				currentGrade = grades[index]
-				currentEntry = currentClass + " " + currentHours + " " + currentGrade
-				if(index==0){
-					displayArray.push(currentEntry)
+			
+			// When the text input field is being selected, resets its
+			// value to be blank
+			$('input:text').focus(
+				function(){
+					$(this).val('');
+			});
+			
+			// FUNCTION recordAnswers: pushes the inputted values to
+			// the correct arrays
+			var recordAnswers = function() {
+				// newHour needs to be a number
+				newHour = Number($('.hours').val())
+				if(isNaN(newHour)) {
+					// Shows an error and stops the function
+					$('.gpaAndErrors').show();
+					$('.gpaAndErrors').html('"Hours" must be a number.')
+					return null
 				}
-				else {
-					displayArray.push(", " + currentEntry)
+				// Course codes and grades should be uppercase
+				newClass = $('.classes').val().toUpperCase()
+				newGrade = $('.grade').val().toUpperCase()
+				// If any of the fields are blank
+				if(newClass == "" || newHour == "" || newGrade == "") {
+					// Then it shows an error and stops the function
+					$('.gpaAndErrors').show()
+					$('.gpaAndErrors').html('You must fill out all fields.')
+					return null
 				}
+				// Pushes the new values to the global arrays
+				classes.push(newClass);
+				hours.push(newHour);
+				grades.push(newGrade);
+			}
+			
+			// FUNCTION displayClasses: display all of the classes and the
+			// associated data in a user-readable format
+			var displayClasses = function() {
+				var num = classes.length
+				var index = 0
+				var displayArray = []
+				// For each index in [0, # of inputs)
+				while(index < num) {
+					// Take the index's value in each array
+					currentClass = classes[index]
+					currentHours = hours[index]
+					currentGrade = grades[index]
+					// Concencate them into one readable entry
+					currentEntry = currentClass + " - " + currentHours + " Hours - " + currentGrade
+					// The first element should just be the element
+					if(index==0){
+						displayArray.push(currentEntry)
+					}
+					// Every subsequent element should have a comma before it
+					else {
+						displayArray.push("<br>")
+						displayArray.push(currentEntry)
+					}
+					// Makes sure we're not stuck in an infinite loop
+					index++
+				}
+				// Sets classList to the array of readable data
+				$('.classList').html(displayArray)
+			}
+			
+			// RESET BUTTON: resets arrays of inputs, shows the welcome message,
+			// hides the other messages (They'd no longer apply)
+			$('.reset').click(function() {
+				$('.entryMessage').show();
+				resetAnswers();
+				$('.classList').hide();
+				$('.gpaAndErrors').hide();
+			});
+			
+			// NEXT BUTTON: Records Answers and Displays Classes
+			$('.next').click(function() {
+				$('.entryMessage').hide();
+				$('.classList').show();
+				$('.gpaAndErrors').hide();
+				// Make sure these are below the .hide()s, or the error messages
+				// will be hidden
+				recordAnswers();
+				//alert("recorded")
+				displayClasses();
+			});
+			
+			// ENTER KEY: Duplicates function of Next button on text inputs
+			$(document).keypress(function(e) {
+			if(e.which == 13) {
+				$('.entryMessage').hide();
+				$('.gpaAndErrors').hide();
+				$('.classList').show();
+				// Make sure these are below the .hide()s, or the error messages
+				// will be hidden
+				recordAnswers();
+				displayClasses();
+				}
+			});
+			
+			// FUNCTION showResults: Either returns an error or the GPA
+			var showResults = function() {
+				//alert("Function")
+				// Acts as the length for all arrays
+				var numClasses = classes.length
+				if(numClasses == 0) {
+					return 'You must enter at least one class.'
+				}
+				var index  = 0
+				var totalHours = 0
+				var totalGrade = 0
+				//alert("Beginning While")
+				// For each element in each array with index in range
+				// [0, # of input triples)
+				while(index < numClasses){
+					//alert("While")
+					// currentHours needs to be a number
+					var currentHours = Number(hours[index])
+					if(isNaN(currentHours)) {
+						return 'One of your "Hours" fields was entered improperly. Please reset and try again.'
+					}
+					// totalHours will eventually be sum(hours)
+					// Sum's not a valid JS function
+					totalHours += currentHours
+					var currentGrade = grades[index];
+					// totalGrade is the product of hours and grade
+					// If possible, find way to iterate over these;
+					// this many conditionals are prone to edge cases.
+					if(currentGrade == "A+") {
+						totalGrade += 4.3333*currentHours
+					}
+					else if(currentGrade == "A") {
+						totalGrade += 4*currentHours
+					}
+					else if(currentGrade == "A-") {
+						totalGrade += 3.6667*currentHours
+					}
+					else if(currentGrade == "B+") {
+						totalGrade += 3.3333*currentHours
+					}
+					else if(currentGrade == "B") {
+						totalGrade += 3*currentHours
+					}
+					else if(currentGrade == "B-") {
+						totalGrade += 2.6667*currentHours
+					}
+					else if(currentGrade == "C+") {
+						totalGrade += 2.3333*currentHours
+					}
+					else if(currentGrade == "C") {
+						totalGrade += 2*currentHours
+					}
+					else if(currentGrade == "C-") {
+						totalGrade += 1.6667*currentHours
+					}
+					else if(currentGrade == "D+") {
+						totalGrade += 1.3333*currentHours
+					}
+					else if(currentGrade == "D") {
+						totalGrade += 1*currentHours
+					}
+					else if(currentGrade == "D-") {
+						totalGrade += 0.6667*currentHours
+					}
+					else if(currentGrade == "F") {
+						totalGrade += 0
+					}
+					else {
+						return 'One of your "Grade" fields was entered improperly. Please reset and try again.'
+					}
+				// Don't kill your browser; kill the loop!
 				index++
+				}
+			//alert("GPA calc")
+			// Calculate unrounded GPA
+			var GPA = totalGrade / totalHours
+			//alert("GPA good")
+			// Calculate GPA to 3 decimal places
+			var roundedGPA = Math.round(GPA*1000) / 1000
+			//alert("round good")
+			return("Your GPA is: " + roundedGPA)
 			}
-		$('.classList').html(displayArray)
-		}
-		
-		$('.reset').click(function() {
-			$('.entryMessage').show();
-			resetAnswers();
-			$('.classList').hide();
-			$('.gpaAndErrors').hide();
-    	});
-		
-		$('.next').click(function() {
-			$('.entryMessage').hide();
-			$('.classList').show();
-			$('.gpaAndErrors').hide();
-			recordAnswers();
-			//alert("recorded")
-			displayClasses();
-    	});
-		$(document).keypress(function(e) {
-    	if(e.which == 13) {
-			$('.entryMessage').hide();
-			$('.gpaAndErrors').hide();
-			$('.classList').show();
-        	recordAnswers();
-			displayClasses();
-    		}
-		});
-		
-		var showResults = function() {
-			//alert("Function")
-			var numClasses = classes.length
-			if(numClasses == 0) {
-				return 'You must enter at least one class.'
-			}
-			var index  = 0
-			var totalHours = 0
-			var totalGrade = 0
-			//alert("Beginning While")
-			while(index < numClasses){
-				//alert("While")
-				var currentHours = Number(hours[index])
-				if(isNaN(currentHours)) {
-					return 'One of your "Hours" fields was entered improperly. Please reset and try again.'
-				}
-				totalHours += currentHours
-				var currentGrade = grades[index];
-				if(currentGrade == "A+") {
-					totalGrade += 4.3333*currentHours
-				}
-				else if(currentGrade == "A") {
-					totalGrade += 4*currentHours
-				}
-				else if(currentGrade == "A-") {
-					totalGrade += 3.6667*currentHours
-				}
-				else if(currentGrade == "B+") {
-					totalGrade += 3.3333*currentHours
-				}
-				else if(currentGrade == "B") {
-					totalGrade += 3*currentHours
-				}
-				else if(currentGrade == "B-") {
-					totalGrade += 2.6667*currentHours
-				}
-				else if(currentGrade == "C+") {
-					totalGrade += 2.3333*currentHours
-				}
-				else if(currentGrade == "C") {
-					totalGrade += 2*currentHours
-				}
-				else if(currentGrade == "C-") {
-					totalGrade += 1.6667*currentHours
-				}
-				else if(currentGrade == "D+") {
-					totalGrade += 1.3333*currentHours
-				}
-				else if(currentGrade == "D") {
-					totalGrade += 1*currentHours
-				}
-				else if(currentGrade == "D-") {
-					totalGrade += 0.6667*currentHours
-				}
-				else if(currentGrade == "F") {
-					totalGrade += 0
-				}
-				else {
-					return 'One of your "Grade" fields was entered improperly. Please reset and try again.'
-				}
-			index++
-			}
-		//alert("GPA calc")
-		var GPA = totalGrade / totalHours
-		//alert("GPA good")
-		var roundedGPA = Math.round(GPA*1000) / 1000
-		//alert("round good")
-		return("Your GPA is: " + roundedGPA)
-		}
-		
-		$('.done').click(function() {
-			//alert("Done")
-			var result = String(showResults());
-			$('.gpaAndErrors').html(result);
-			$('.entryMessage').hide();
-			$('.gpaAndErrors').show();
-		});
+			
+			// DONE BUTTON: shows the GPA (or error) produced by
+			// calling showResults, and hides the entry message
+			$('.done').click(function() {
+				//alert("Done")
+				var result = String(showResults());
+				$('.gpaAndErrors').html(result);
+				$('.entryMessage').hide();
+				$('.gpaAndErrors').show();
+			});
+			
+			// TO DO IF TIME PERMITS
+			// Reset all text inputs after button press
+			// Make the readable data more readable - table?
 		</script>
 	</body>
 </html>
