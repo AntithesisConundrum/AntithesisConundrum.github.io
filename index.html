@@ -206,6 +206,8 @@
 			// FUNCTION displayClasses: display all of the classes and the
 			// associated data in a user-readable format
 			var displayClasses = function() {
+				var mobileCheck = window.matchMedia( "orientation: portrait" );
+				var isMobile = mobileCheck.matches
 				var num = classes.length
 				var index = 0
 				var displayArray = []
@@ -220,22 +222,34 @@
 					if(currentHours == 1) {
 						currentEntry = currentClass + " : " + currentHours + " Hour : " + currentGrade
 					}
-					// Two or More Hours
+					// Two+ Hours
 					else {
 						currentEntry = currentClass + " : " + currentHours + " Hours : " + currentGrade
 					}
-					// The first element should just be the element
-					if(index==0){
+					
+					if(isMobile){
+						if(index==0){
 						displayArray.push(currentEntry)
+						}
+						else {
+							displayArray.push("<br>")
+							displayArray.push(currentEntry)
+						}
 					}
-					// Every third element thereafter should start a new line
-					else if(index % 3 == 0){
-						displayArray.push("<br>")
-						displayArray.push(currentEntry)
-					}
-					// And the others have breaks for ease of reading
 					else{
-						displayArray.push(" || " + currentEntry)
+						// The first element should just be the element
+						if(index==0){
+							displayArray.push(currentEntry)
+						}
+						// Every third element thereafter should start a new line
+						else if(index % 3 == 0){
+							displayArray.push("<br>")
+							displayArray.push(currentEntry)
+						}
+						// And the others have breaks for ease of reading
+						else{
+							displayArray.push(" || " + currentEntry)
+						}
 					}
 					// Makes sure we're not stuck in an infinite loop
 					index++
