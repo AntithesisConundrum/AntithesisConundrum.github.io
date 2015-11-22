@@ -18,6 +18,7 @@
 			}
 			img {
 				display: inline-block;
+				
 			}
 			h1 {
 				display: inline-block;
@@ -32,13 +33,15 @@
 				position: relative;
 				top: 20px;
 			}
-			button {
-			margin: 40px;
+			h4 {
+				text-align: center;
 			}
 			input {
 				font-size: 24px;
-				border: 4px solid black;
+				border: 3px solid #331700;
 				margin: 7px;
+				width: 80%;
+				text-align: center;
 			}
 			table {
 				text-align: center;
@@ -47,19 +50,27 @@
 				position: absolute;
 				left: 2.5%;
 				border-collapse: collapse;
+				margin-top: 1%;
+				margin-bottom: 5%;
 			}
 			td {
 				border: 3px solid #331700;
 			}
 
 			.button {
-				position: relative;
 				width: 15%;
-				top: 35px;
-				margin: 40px;
-				left: 260px;
-				text-align: center;
-				background-color: #CCBDB1;
+				height: 5%;
+				position: relative;
+				margin: 5.25%;
+				margin-top: 10%;
+				margin-bottom: 5%;
+				left: 11.5%;
+				background-color: rgba(150, 0, 0, 0.1);
+			}
+			footer {
+				position: absolute;
+				margin: 0;
+				bottom: 0;
 			}
 		</style>
 	</head>
@@ -86,10 +97,13 @@
 		<span class = "next"><input type="button" class="button" value="Next" /></span>
 		<span class = "done"><input type="button" class="button" value="Done" /></span>
 		<span class = "reset"><input type="button" class="button" value="Reset" /></span>
+		<h4 class="show0">Welcome! Start by entering information, then hitting "Next".</h4>
 		<h3 class="show1"></h3>
 		<h3 class="show2"></h3>
 		
-		
+		<footer>
+			<p> Created by Charles Paul for CodeRed Liftoff, 2015 </p>
+		</footer>
 		
 		<script>
 		var classes = [];
@@ -97,9 +111,9 @@
 		var grades = [];
 		
 		var resetAnswers = function() {
-			classes = []
-			hours = []
-			grades = []
+			classes = [];
+			hours = [];
+			grades = [];
 		}
 		
 		$('input:text').focus(
@@ -138,11 +152,14 @@
 		}
 		
 		$('.reset').click(function() {
+			$('.show0').show();
 			resetAnswers();
-			displayClasses();
+			$('.show1').hide();
+			$('.show2').hide();
     	});
 		
 		$('.next').click(function() {
+			$('.show0').hide();
 			recordAnswers();
 			displayClasses();
     	});
@@ -172,40 +189,40 @@
 				totalHours += currentHours
 				var currentGrade = grades[index];
 				if(currentGrade == "A+") {
-					totalGrade += 4.333*currentHours
+					totalGrade += 4.3333*currentHours
 				}
 				else if(currentGrade == "A") {
 					totalGrade += 4*currentHours
 				}
 				else if(currentGrade == "A-") {
-					totalGrade += 3.667*currentHours
+					totalGrade += 3.6667*currentHours
 				}
 				else if(currentGrade == "B+") {
-					totalGrade += 3.333*currentHours
+					totalGrade += 3.3333*currentHours
 				}
 				else if(currentGrade == "B") {
 					totalGrade += 3*currentHours
 				}
 				else if(currentGrade == "B-") {
-					totalGrade += 2.667*currentHours
+					totalGrade += 2.6667*currentHours
 				}
 				else if(currentGrade == "C+") {
-					totalGrade += 2.333*currentHours
+					totalGrade += 2.3333*currentHours
 				}
 				else if(currentGrade == "C") {
 					totalGrade += 2*currentHours
 				}
 				else if(currentGrade == "C-") {
-					totalGrade += 1.666*currentHours
+					totalGrade += 1.6667*currentHours
 				}
 				else if(currentGrade == "D+") {
-					totalGrade += 1.333*currentHours
+					totalGrade += 1.3333*currentHours
 				}
 				else if(currentGrade == "D") {
 					totalGrade += 1*currentHours
 				}
 				else if(currentGrade == "D-") {
-					totalGrade += 0.667*currentHours
+					totalGrade += 0.6667*currentHours
 				}
 				else if(currentGrade == "F") {
 					totalGrade += 0
@@ -227,6 +244,8 @@
 			//alert("Done")
 			var result = String(showResults());
 			$('.show2').html(result);
+			$('.show0').hide();
+			$('.show2').show();
 		});
 		</script>
 	</body>
