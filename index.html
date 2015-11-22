@@ -182,6 +182,7 @@
 		$('.next').click(function() {
 			$('.entryMessage').hide();
 			$('.classList').show();
+			$('.gpaAndErrors').hide();
 			recordAnswers();
 			//alert("recorded")
 			displayClasses();
@@ -189,6 +190,7 @@
 		$(document).keypress(function(e) {
     	if(e.which == 13) {
 			$('.entryMessage').hide();
+			$('.gpaAndErrors').hide();
 			$('.classList').show();
         	recordAnswers();
 			displayClasses();
