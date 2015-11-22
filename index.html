@@ -1,1 +1,78 @@
-Hello World
+<!DOCTYPE html>
+<html>	
+	<head>
+		<script src="jquery.js"></script>
+		<style>
+			body {
+			font-size: 20px;
+			background: #ffecb3;
+			}
+			button {
+			margin: 40px;
+			}
+			input {
+				font-size: 24px;
+				border: 4px solid black;
+				margin: 4px;
+			}
+			table {
+				text-align: center;
+				border: 1px solid black;
+				width: 100%;
+				position: absolute;
+				left: 0px;
+				right: 0px;
+			}
+			td {
+				border: 1px solid black;
+			}
+
+			.button {
+				margin: 20px;
+				position: relative;
+				text-align: center;
+				top: 50px;
+				left: 40%;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<table>
+			<tr>
+				<td id="classname">Class Name</td>
+				<td id="numhours">Number of Hours</td>
+				<td id="letter">Letter Grade</td>
+			</tr>
+			<tr>
+				<td><input type="text" class="classes"></td>
+				<td><input type="text" class="hours"></td>
+				<td><input type="text" class="grade"></td>
+			</tr>
+		</table>
+		<br>
+		<input type="button" class="button" class="next" value="Next" />
+		<input type="button" class="button" id="done" value="Done" />
+		<div class="show"></div>
+		
+		<script>
+		var classes = [];
+		var hours = [];
+		var grades = [];
+		
+		// A function that will record the inputted values
+		var recordAnswers = function() {
+			classes.push($('.classes').val());
+			hours.push($('.hours').val());
+			grades.push($('.grades').val());
+			$('.prompt').html(classes + hours + grades)
+		}
+		
+		$('.next').click(function() {
+			recordAnswers();
+			alert("clicked!");
+		});
+		
+		</script>
+	</body>
+</html>
