@@ -211,7 +211,7 @@
 				//alert("While")
 				var currentHours = Number(hours[index])
 				if(isNaN(currentHours)) {
-					return 'One of your "Hours" fields was entered improperly. Please try again.'
+					return 'One of your "Hours" fields was entered improperly. Please reset and try again.'
 				}
 				totalHours += currentHours
 				var currentGrade = grades[index];
@@ -255,7 +255,7 @@
 					totalGrade += 0
 				}
 				else {
-					return 'One of your "Grade" fields was entered improperly. Please try again.'
+					return 'One of your "Grade" fields was entered improperly. Please reset and try again.'
 				}
 			index++
 			}
