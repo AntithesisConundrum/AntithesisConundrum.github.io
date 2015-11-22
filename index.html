@@ -111,9 +111,6 @@
 				var currentHours = Number(hours[index])
 				
 				if(typeof currentHours != "number") {
-					classes = []
-					hours = []
-					grades = []
 					return 'One of your "Hours" fields was entered improperly. Please try again.'
 				}
 				totalHours += currentHours
@@ -158,9 +155,6 @@
 					totalGrade += 0
 				}
 				else {
-					classes = []
-					hours = []
-					grades = []
 					return 'One of your "Grade" fields was entered improperly. Please try again.'
 				}
 			index++
