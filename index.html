@@ -8,7 +8,7 @@
 		</title>
 		
 		<link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
-		
+		<link rel="icon" href="http://s11.postimg.org/7mbm8qzov/icon.png">
 		<script src="jquery.js"></script>
 		
 		<style>
@@ -144,7 +144,7 @@
 			newGrade = $('.grade').val().toUpperCase()
 			if(newClass == "" || newHour == "" || newGrade == "") {
 				$('.gpaAndErrors').show()
-				$('.gpaAndErrors').html('Please fill out all fields!')
+				$('.gpaAndErrors').html('You must fill out all fields.')
 				return null
 			}
 			classes.push(newClass);
@@ -197,7 +197,7 @@
 			//alert("Function")
 			var numClasses = classes.length
 			if(numClasses == 0) {
-				return 'You have to input a class!'
+				return 'You must enter at least one class.'
 			}
 			var index  = 0
 			var totalHours = 0
