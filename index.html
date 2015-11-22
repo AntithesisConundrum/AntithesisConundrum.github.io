@@ -100,6 +100,10 @@
 				text-decoration: none;
 				color: #002469;
 			}
+			.entryMessage {
+				position: relative;
+				top: 12px;
+			}
 			@media(orientation: portrait) {
 				body {
 					font-family: Georgia;
@@ -154,7 +158,7 @@
 		<span class = "next"><input type="button" class="button" value="Next" /></span>
 		<span class = "done"><input type="button" class="button" value="Done" /></span>
 		<span class = "reset"><input type="button" class="button" value="Reset" /></span>
-		<h4 class="entryMessage">Welcome! Start by entering information, then hitting "Next".</h4>
+		<h3 class="entryMessage">Welcome! Start by entering information, then hitting "Next".</h3>
 		<h3 class="classList"></h3>
 		<h3 class="gpaAndErrors"></h3>
 		
@@ -274,10 +278,10 @@
 			// RESET BUTTON: resets arrays of inputs, shows the welcome message,
 			// hides the other messages (They'd no longer apply)
 			$('.reset').click(function() {
-				$('.entryMessage').show();
-				resetAnswers();
 				$('.classList').hide();
 				$('.gpaAndErrors').hide();
+				$('.entryMessage').show();
+				resetAnswers();
 			});
 			
 			// NEXT BUTTON: Records Answers and Displays Classes
@@ -392,10 +396,11 @@
 			// calling showResults, and hides the entry message
 			$('.done').click(function() {
 				//alert("Done")
-				var result = String(showResults());
-				$('.gpaAndErrors').html(result);
+				$('.classList').show();
 				$('.entryMessage').hide();
+				var result = String(showResults());
 				$('.gpaAndErrors').show();
+				$('.gpaAndErrors').html(result);
 			});
 			
 			// TO DO IF TIME PERMITS
