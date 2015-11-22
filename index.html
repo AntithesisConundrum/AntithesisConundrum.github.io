@@ -188,6 +188,8 @@
     	});
 		$(document).keypress(function(e) {
     	if(e.which == 13) {
+			$('.entryMessage').hide();
+			$('.classList').show();
         	recordAnswers();
 			displayClasses();
     		}
