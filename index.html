@@ -104,7 +104,6 @@
 				position: relative;
 				top: 10px;
 			}
-			
 			@media(orientation: portrait) {
 				body {
 					font-family: Georgia;
@@ -131,6 +130,8 @@
 				}
 				p {
 					font-size: 25px;
+					margin: 0;
+					padding: 0;
 				}
 			}
 		</style>
@@ -165,6 +166,7 @@
 		
 		<footer>
 			<p> Created by <a href="mailto:Charlie.Paul@rice.edu">Charles Paul</a> for CodeRed Liftoff, 2015 </p>
+			<p> Winner of CodeRed Liftoff Challenge: "Best Use of Domain Name"! </p>
 		</footer>
 		
 		<script>
@@ -188,7 +190,7 @@
 					$(this).val('');
 			});
 			
-			// FUNCTION recordAnswers: pushes the inputted values to
+			// FUNCTION recordAnswers: pushes the inputted values
 			// the correct arrays
 			var recordAnswers = function() {
 				// newHour needs to be a number
