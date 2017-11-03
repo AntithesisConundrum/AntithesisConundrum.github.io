@@ -1,16 +1,11 @@
 package common;
 
 /**
- * Should be sent to a user to inform them to remove
+ * Message type that should be sent to a user to inform them to remove
  * the user returned by getUser from their group.
  *
  * Considered a "well known type"; it is required
  * that you have a command for this type!
- * 
- * As this is a "well known type", the command for
- * this type should be written as an anonymous inner
- * class to your model so that it can directly reference
- * your model's set of users.
  */
 public interface IRemoveUserMessage {
 	/**

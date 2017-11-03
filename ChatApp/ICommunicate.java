@@ -10,7 +10,7 @@ import provided.datapacket.DataPacket;
  * 
  * There should be one ICommunicate object per room per person.
  * 
- * Note that this is an RMI server and should be treated as such; this object
+ * Note that this is an RMI server object and should be treated as such; this object
  * should NEVER be sent in its entirety, but rather stubbified before sending.
  */
 public interface ICommunicate extends Remote {
@@ -20,17 +20,18 @@ public interface ICommunicate extends Remote {
 	 * For use in "auto-connect" back
 	 * @return IConnect for this user
 	 */
-	public DataPacket<IConnect, ICommunicate> getIConnect();
+	public DataPacket<IConnect, ICommunicate> getIConnect() throws RemoteException;
 	
 	/**
 	 * Gets the preferred name for a user within a given chat.
-	 * @return String of the user's preferred name
+	 * @return DataPacket with String of the user's preferred name and their ICommunicate stub
+	 * @throws RemoteException in the case that there is some error sending the message
 	 */
 	public DataPacket<String, ICommunicate> getUserInfo() throws RemoteException;
 	
 	/**
 	 * Sends a message to the group chat represented by this ICommunicate object.
-	 * @param data the message
+	 * @param data - the message to be sent
 	 * @throws RemoteException in the case that there is some error sending the message
 	 */
 	public void sendMsg(DataPacket<?, ICommunicate> data) throws RemoteException;
